@@ -1,0 +1,52 @@
+services:
+  plex:
+    image: plexinc/pms-docker:plexpass
+    ports:
+      - 32400:32400/tcp
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    container_name: plex
+    network_mode: host
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - VERSION=docker
+      - PLEX_CLAIM=${PLEX_CLAIM}
+    volumes:
+      - /home/plex/config:/config
+      - /home/plex/transcodes:/transcode
+      - /home/plex/media:/media
+    restart: unless-stopped
+  qbittorrent-nox:
+    container_name: qbittorrent-nox
+    environment:
+      - QBT_EULA=${QBT_EULA}
+      - QBT_VERSION=${QBT_VERSION}
+      - QBT_WEBUI_PORT=${QBT_WEBUI_PORT}
+    image: qbittorrentofficial/qbittorrent-nox:${QBT_VERSION}
+    ports:
+      - 6881:6881/tcp
+      - 6881:6881/udp
+      - ${QBT_WEBUI_PORT}:${QBT_WEBUI_PORT}/tcp
+    read_only: true
+    stop_grace_period: 30m
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ${QBT_CONFIG_PATH}:/config
+      - ${QBT_DOWNLOADS_PATH}:/downloads
+      - ${QBT_TEMP_PATH}:/temp
+      - ${QBT_TORRENT_PATH}/downloading:/torrent/downloading
+      - ${QBT_TORRENT_PATH}/finished:/torrent/finished
+      - ${QBT_TORRENT_PATH}/waiting:/torrent/waiting
