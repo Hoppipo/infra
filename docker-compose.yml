@@ -1,0 +1,10 @@
+services:
+  media-server:
+    extends:
+      file: /media-server/compose.yaml
+      service: media-server
+
+  reverse-proxy:
+    extends:
+      file: /reverse-proxy/compose.yaml
+      service: reverse-proxy
