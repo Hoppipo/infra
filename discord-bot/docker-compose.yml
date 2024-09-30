@@ -4,7 +4,7 @@ services:
     container_name: DiscordBot
     restart: unless-stopped
     volumes:
-      - ${HOPPIPOTAME_DOWNLOAD_FOLDER}:${HOPPIPOTAME_DOWNLOAD_FOLDER}
+      - ${HOPPIPOTAME_DOWNLOAD_FOLDER}:/downloads
     environment:
       HOPPIPOTAME_DISCORD_TOKEN: ${HOPPIPOTAME_DISCORD_TOKEN}
       HOPPIPOTAME_DOWNLOAD_FOLDER: ${HOPPIPOTAME_DOWNLOAD_FOLDER}
