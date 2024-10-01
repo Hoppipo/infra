@@ -1,6 +1,6 @@
 services:
   plex:
-    image: plexinc/pms-docker:plexpass
+    image: plexinc/pms-docker:latest
     ports:
       - 32400:32400/tcp
       - 3005:3005/tcp
