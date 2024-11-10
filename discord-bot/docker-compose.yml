@@ -3,9 +3,6 @@ services:
     image: ghcr.io/hoppipo/hoppipotame-discord:main
     container_name: DiscordBot
     restart: unless-stopped
-    volumes:
-      - ${HOPPIPOTAME_DOWNLOAD_FOLDER}:/downloads
     environment:
       HOPPIPOTAME_DISCORD_TOKEN: ${HOPPIPOTAME_DISCORD_TOKEN}
-      HOPPIPOTAME_DOWNLOAD_FOLDER: ${HOPPIPOTAME_DOWNLOAD_FOLDER}
-      HOPPIPOTAME_SEARCH_RESULT_SIZE: ${HOPPIPOTAME_SEARCH_RESULT_SIZE}
+      TMDB_JWT: ${TMDB_JWT}
